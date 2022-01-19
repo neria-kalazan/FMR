@@ -82,28 +82,6 @@ exports.findAll = (req, res) => {
         offset: ((+page - 1) * +limit),
         limit: +limit,
         distinct: true,
-        include: [
-            {
-                model: Models.phone,
-                foreignKey: 'customer_id',
-                as: 'phone'
-            },
-            {
-                model: Models.address,
-                foreignKey: 'customer_id',
-                as: 'address'
-            },
-            {
-                model: Models.product_client_link,
-                foreignKey: 'customer_id',
-                as: 'product_client_link',
-                include: {
-                    model: Models.product,
-                    foreignKey: 'product_id',
-                    as: 'product'
-                }
-            }
-        ]
     })
         .then(data => {
             res.send(data);
@@ -134,7 +112,7 @@ exports.findOne = (req, res) => {
             {
                 model: Models.product_client_link,
                 foreignKey: 'customer_id',
-                as: 'product_client_link',
+                as: 'product_client',
                 include: {
                     model: Models.product,
                     foreignKey: 'product_id',

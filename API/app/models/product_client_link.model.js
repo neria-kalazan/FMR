@@ -6,14 +6,6 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.DECIMAL(3,2),
             allowNull: false
         },
-        date: {
-            type: DataTypes.DATEONLY,
-            allowNull: false
-        },
-        street: DataTypes.STRING(64),
-        house_number: DataTypes.INTEGER,
-        pob: DataTypes.STRING(11),
-        zip_number: DataTypes.STRING(11),
     }, {
         timestamps: true,
         paranoid: true,

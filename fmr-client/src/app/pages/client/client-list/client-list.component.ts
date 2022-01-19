@@ -20,16 +20,6 @@ export class ClientListComponent implements OnInit {
     keyword: '',
   };
 
-  expandSet = new Set<number>();
-
-  onExpandChange(id: number, checked: boolean): void {
-    if (checked) {
-      this.expandSet.add(id);
-    } else {
-      this.expandSet.delete(id);
-    }
-  }
-
   constructor(
     private clientService: ClientService,
   ) { }
@@ -39,18 +29,16 @@ export class ClientListComponent implements OnInit {
   }
 
   loadData () {
-    console.log('loadData');
     this.busy = true;
     this.clientService.getClients(this.paginate)
       .subscribe(data => {
         this.clients = data.rows;
         this.countClients = data.count;
-        console.log('this.clients', this.clients);
         this.busy = false;
       })
   }
+
   onQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params);
     const { pageSize, pageIndex } = params;
     this.paginate.page = pageIndex;
     this.paginate.limit = pageSize;

@@ -28,7 +28,7 @@ module.exports = function (sequelize, DataTypes) {
 
         Product.hasMany(models.product_client_link, {
             foreignKey: 'product_id',
-            as: 'product_client_link'
+            as: 'product_client'
         });
 
     };

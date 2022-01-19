@@ -1,3 +1,11 @@
+<div class="page-header">
+  <button routerLink="/client" nz-button nzType="default" nzShape="round">
+    <i nz-icon nzType="left" nzTheme="outline"></i>
+    Back to clients
+  </button>
+  <h2 nz-typography class="text-center">{{ formType == 'add' ? 'Add' : 'Edit' }} Client</h2>
+</div>
+
 <form nz-form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
 
   <nz-form-item *ngIf="clientForm.controls['id'].value">

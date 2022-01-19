@@ -7,6 +7,7 @@ export interface Client {
   deletedAt: Date;
   address: Address[];
   phone: Phone[];
+  product_client?: ProductClientLink[];
 }
 
 export interface Address {
@@ -31,3 +32,24 @@ export interface Phone {
   updatedAt: Date;
   deletedAt: Date;
 }
+
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  deposit: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+}
+
+export interface ProductClientLink {
+  customer_id: number;
+  product_id: number;
+  deposit: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  product?: Product;
+}
+

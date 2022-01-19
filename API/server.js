@@ -11,8 +11,14 @@ const db = require("./app/models");
 // db.sequelize.sync({ force: true }).then(() => {
 //     console.log("Drop and re-sync db.");
 // });
+// db.product.bulkCreate([
+//     { id: 1, name: 'provident fund', description: '', deposit: 1 },
+//     { id: 2, name: 'education fund', description: '', deposit: 2 },
+//     { id: 3, name: 'pension', description: '', deposit: 3 },
+// ]);
 
 require("./app/routes/client.routes")(app);
+require("./app/routes/product.routes")(app);
 
 const PORT = 8080;
 app.listen(PORT, () => {

@@ -5,3 +5,11 @@
 .text-right {
   text-align: right;
 }
+
+.page-header {
+  display: flex;
+  h2 {
+    flex: auto;
+  }
+}
+

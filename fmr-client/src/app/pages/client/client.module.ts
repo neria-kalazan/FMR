@@ -15,12 +15,19 @@ import {NzInputModule} from "ng-zorro-antd/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
 import {NzSelectModule} from "ng-zorro-antd/select";
+import {NzDescriptionsModule} from "ng-zorro-antd/descriptions";
+import {NzDividerModule} from "ng-zorro-antd/divider";
+import {AddProductComponent} from "./add-product/add-product.component";
+import {NzInputNumberModule} from "ng-zorro-antd/input-number";
+import {NzModalModule} from "ng-zorro-antd/modal";
+import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 
 @NgModule({
   declarations: [
     ClientListComponent,
     ClientViewComponent,
-    ClientFormComponent
+    ClientFormComponent,
+    AddProductComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +43,11 @@ import {NzSelectModule} from "ng-zorro-antd/select";
     NzInputModule,
     NzPopconfirmModule,
     NzSelectModule,
+    NzDescriptionsModule,
+    NzDividerModule,
+    NzInputNumberModule,
+    NzModalModule,
+    NzDatePickerModule,
   ],
   providers: [
     ClientService

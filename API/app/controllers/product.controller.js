@@ -28,7 +28,6 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-
     Models.product.findAll()
         .then(data => {
             res.send(data);
@@ -37,6 +36,32 @@ exports.findAll = (req, res) => {
             res.status(500).send({
                 message:
                     err.message || "Some error occurred while retrieving products."
+            });
+        });
+};
+
+exports.createLink = (req, res) => {
+    if (!req.body.customer_id || !req.body.product_id || !req.body.deposit) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+        return;
+    }
+
+    const productClient = {
+        customer_id: req.body.customer_id,
+        product_id: req.body.product_id,
+        deposit: req.body.deposit,
+    };
+
+    Models.product_client_link.create(productClient)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while creating the Product."
             });
         });
 };

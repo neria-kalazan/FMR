@@ -1,1 +1,55 @@
-<p>client-view works!</p>
+<div class="page-header">
+  <button routerLink="/client" nz-button nzType="default" nzShape="round">
+    <i nz-icon nzType="left" nzTheme="outline"></i>
+    Back to clients
+  </button>
+  <h2 nz-typography class="text-center">View Client - ID {{ client?.id }}</h2>
+  <button [routerLink]="['edit']" nz-button nzType="primary" nzShape="round">
+    <i nz-icon nzType="edit" nzTheme="outline"></i>
+    Edit User
+  </button>
+</div>
+
+<nz-descriptions [nzTitle]="'User Info: ' + (client?.name | uppercase)">
+  <nz-descriptions-item nzTitle="ID Number">{{ client?.id_number }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Create At">{{ client?.createdAt | date }}</nz-descriptions-item>
+</nz-descriptions>
+
+<nz-divider nzText="User Addresses"></nz-divider>
+<ng-container *ngIf="!!client?.address">
+  <nz-descriptions *ngFor="let a of client?.address" [nzTitle]="'Address ID: ' + a.id">
+    <nz-descriptions-item nzTitle="Type">{{ a.type | titlecase }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="City">{{ a.city | titlecase }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Street">{{ a.street | titlecase }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="House Number">{{ a.house_number | number }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="POB">{{ a.pob | number }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Zip Number">{{ a.zip_number | number }}</nz-descriptions-item>
+  </nz-descriptions>
+</ng-container>
+
+<nz-divider nzText="User Phones"></nz-divider>
+<ng-container *ngIf="!!client?.phone">
+  <nz-descriptions *ngFor="let p of client?.phone" [nzTitle]="'Phone ID: ' + p.id">
+    <nz-descriptions-item nzTitle="Type">{{ p.type | titlecase }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Phone Number">{{ p.phone_number }}</nz-descriptions-item>
+  </nz-descriptions>
+</ng-container>
+
+<nz-divider [nzText]="text">
+  <ng-template #text>
+    <nz-space>
+      <span *nzSpaceItem>User Products</span>
+      <button *nzSpaceItem [routerLink]="['addProduct']" nz-button nzType="dashed" nzShape="round">
+        <i nz-icon nzType="plus"></i>
+        Add Product
+      </button>
+    </nz-space>
+  </ng-template>
+</nz-divider>
+<ng-container *ngIf="!!client?.product_client">
+  <nz-descriptions *ngFor="let pcl of client?.product_client" [nzTitle]="'Product ID: ' + pcl.product?.id">
+    <nz-descriptions-item nzTitle="Name">{{ pcl.product?.name | titlecase }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Description">{{ pcl.product?.description }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Deposit">{{ pcl.product?.deposit }}</nz-descriptions-item>
+  </nz-descriptions>
+</ng-container>

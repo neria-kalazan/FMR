@@ -6,7 +6,6 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'client', loadChildren: () => import('./pages/client/client.module').then(m => m.ClientModule) },
-  { path: 'product', loadChildren: () => import('./pages/product/product.module').then(m => m.ProductModule) }
 ];
 
 @NgModule({

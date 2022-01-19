@@ -1,0 +1,51 @@
+<div class="page-header">
+  <h2 nz-typography class="text-center">Add Product</h2>
+</div>
+
+<form nz-form [formGroup]="productClientForm" (ngSubmit)="submitForm()">
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="5" nzFor="product_id" nzRequired>Product</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Product" id="product_id" formControlName="product_id">
+        <nz-option *ngFor="let p of productList" [nzLabel]="(p.name | titlecase)" [nzValue]="p.id"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <ng-container *ngIf="productClientForm.get('product_id')?.value">
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzRequired nzFor="deposit">Deposit</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-input-number
+          formControlName="deposit"
+          [nzMin]="0.1"
+          [nzStep]="0.1"
+          id="deposit"
+        ></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzSpan]="12" [nzOffset]="5">
+        <nz-space>
+          <button *nzSpaceItem type="submit" [disabled]="!productClientForm.valid" nz-button nzType="primary">Save</button>
+          <button *nzSpaceItem nz-button [disabled]="!productClientForm.get('deposit')?.value" (click)="openModal()" nzType="default">Calculate</button>
+        </nz-space>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Calculate Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      <ng-container *nzModalContent>
+        <nz-descriptions nzTitle="Calculate:">
+          <nz-descriptions-item nzTitle="For Month:">{{ calculate(1) }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="For Year">{{ calculate(12) }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="For Ten Years">{{ calculate(120) }}</nz-descriptions-item>
+        </nz-descriptions>
+      </ng-container>
+    </nz-modal>
+
+  </ng-container>
+</form>
