@@ -1,0 +1,98 @@
+<div class="page-header">
+  <h2 nz-typography class="text-center">Client List</h2>
+  <button [routerLink]="['add']" nz-button nzType="primary" nzSize="large" nzShape="round">
+    <i nz-icon nzType="plus"></i>
+    Add
+  </button>
+</div>
+
+<nz-table #nzTable
+          [nzFooter]="tableFooter"
+          nzShowSizeChanger
+          [nzData]="clients"
+          [nzFrontPagination]="false"
+          [nzLoading]="busy"
+          [nzTotal]="countClients"
+          [nzPageSize]="paginate.limit"
+          [nzPageIndex]="paginate.page"
+          (nzQueryParams)="onQueryParamsChange($event)">
+  <thead>
+    <tr>
+      <th nzWidth="60px"></th>
+      <th>ID</th>
+      <th>Name</th>
+      <th>ID Number</th>
+      <th>Created</th>
+      <th>Updated</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template ngFor let-data [ngForOf]="nzTable.data">
+      <tr>
+        <td [nzExpand]="expandSet.has(data.id)" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
+        <td>{{ data.id }}</td>
+        <td>{{ data.name }}</td>
+        <td>{{ data.id_number }}</td>
+        <td>{{ data.createdAt }}</td>
+        <td>{{ data.updatedAt }}</td>
+        <td>
+          <nz-space>
+            <button *nzSpaceItem [routerLink]="[data.id, 'edit']" nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
+            <button *nzSpaceItem nz-button nzType="primary" nzShape="circle" nzDanger
+                    nz-popconfirm
+                    nzPopconfirmTitle="Are you sure?"
+                    nzOkText="Yes"
+                    nzCancelText="No"
+                    (nzOnConfirm)="deleteClient(data.id)">
+              <i nz-icon nzType="delete"></i>
+            </button>
+          </nz-space>
+        </td>
+      </tr>
+      <tr [nzExpand]="expandSet.has(data.id)">
+        <nz-table #addressTable [nzTitle]="addressHeader"  [nzData]="data.address" nzSize="middle" [nzShowPagination]="false">
+          <ng-template #addressHeader><div class="text-center">Client Address List</div></ng-template>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>City</th>
+              <th>Street</th>
+              <th>House Number</th>
+              <th>Pob</th>
+              <th>Zip Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of addressTable.data">
+              <td>{{ data.type }}</td>
+              <td>{{ data.city }}</td>
+              <td>{{ data.street }}</td>
+              <td>{{ data.house_number }}</td>
+              <td>{{ data.pob }}</td>
+              <td>{{ data.zip_number }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        <nz-table #phoneTable [nzTitle]="phoneHeader" [nzData]="data.phone" nzSize="middle" [nzShowPagination]="false">
+          <ng-template #phoneHeader><div class="text-center">Client Phone List</div></ng-template>
+          <thead>
+          <tr>
+            <th>Type</th>
+            <th>Phone Number</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of phoneTable.data">
+            <td>{{ data.type }}</td>
+            <td>{{ data.phone_number }}</td>
+          </tr>
+          </tbody>
+        </nz-table>
+      </tr>
+    </ng-template>
+
+  </tbody>
+</nz-table>
+
+<ng-template #tableFooter><div class="text-center">Total {{ countClients }} items</div></ng-template>

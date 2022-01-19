@@ -23,5 +23,24 @@ module.exports = function (sequelize, DataTypes) {
         tableName: 'client',
     });
 
+    Client.associate = (models) => {
+
+        Client.hasMany(models.phone, {
+            foreignKey: 'customer_id',
+            as: 'phone'
+        });
+
+        Client.hasMany(models.address, {
+            foreignKey: 'customer_id',
+            as: 'address'
+        });
+
+        Client.hasMany(models.product_client_link, {
+            foreignKey: 'customer_id',
+            as: 'product_client_link'
+        });
+
+    };
+
     return Client;
 };

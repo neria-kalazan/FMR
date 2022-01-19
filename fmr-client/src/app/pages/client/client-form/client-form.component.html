@@ -1,0 +1,158 @@
+<form nz-form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+
+  <nz-form-item *ngIf="clientForm.controls['id'].value">
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="id" nzRequired>
+      <span>ID</span>
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input id="id" formControlName="id" [readonly]="true" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>
+      <span>Name</span>
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your name!">
+      <input nz-input id="name" formControlName="name" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="id_number" nzRequired>ID Number</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your ID number!">
+      <input nz-input id="id_number" formControlName="id_number" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row>
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button nz-button nzType="primary" [disabled]="!clientForm.valid">Save</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</form>
+
+
+<form nz-form nzLayout="vertical" [formGroup]="clientForm">
+  <div formArrayName="phone" class="subFormContainer" *ngFor="let control of (getControlsAsArray(clientForm.get('phone'))) ; let i = index">
+    <ng-container [formGroupName]="i">
+      <nz-space>
+        <nz-form-item *nzSpaceItem>
+          <nz-form-control>
+            <nz-input-group>
+
+              <nz-select
+                formControlName="type"
+                nzAllowClear
+                nzPlaceHolder="Choose Type"
+                [nzOptions]="phoneType"
+              ></nz-select>
+
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *nzSpaceItem>
+          <nz-form-control>
+            <nz-input-group>
+              <input formControlName="phone_number" nz-input/>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *nzSpaceItem>
+          <nz-form-control>
+            <button nz-button nzType="primary" nzShape="circle" nzDanger
+                    (click)="removePhone(i)">
+              <i nz-icon nzType="delete"></i>
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-space>
+    </ng-container>
+  </div>
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 20, offset: 4 }">
+      <button nz-button nzType="dashed" class="add-button" (click)="addPhone()">
+        <i nz-icon nzType="plus"></i>
+        Add phone
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+
+<form nz-form nzLayout="vertical" [formGroup]="clientForm">
+  <div formArrayName="address" class="subFormContainer" *ngFor="let control of (getControlsAsArray(clientForm.get('address'))) ; let i = index">
+    <ng-container [formGroupName]="i">
+      <nz-space>
+        <nz-form-item *nzSpaceItem>
+          <nz-form-control>
+            <nz-input-group>
+              <nz-select
+                formControlName="type"
+                nzAllowClear
+                nzPlaceHolder="Choose Type"
+                [nzOptions]="addressType"
+              ></nz-select>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *nzSpaceItem>
+          <nz-form-control>
+            <nz-input-group>
+              <input formControlName="city" nz-input nzPlaceHolder="City"/>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *nzSpaceItem>
+          <nz-form-control>
+            <nz-input-group>
+              <input formControlName="street" nz-input/>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *nzSpaceItem>
+          <nz-form-control>
+            <nz-input-group>
+              <input formControlName="house_number" nz-input/>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *nzSpaceItem>
+          <nz-form-control>
+            <nz-input-group>
+              <input formControlName="pob" nz-input/>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *nzSpaceItem>
+          <nz-form-control>
+            <nz-input-group>
+              <input formControlName="zip_number" nz-input/>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item *nzSpaceItem>
+          <nz-form-control>
+            <button nz-button nzType="primary" nzShape="circle" nzDanger
+                    (click)="removeAddress(i)">
+              <i nz-icon nzType="delete"></i>
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-space>
+    </ng-container>
+  </div>
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 20, offset: 4 }">
+      <button nz-button nzType="dashed" class="add-button" (click)="addAddress()">
+        <i nz-icon nzType="plus"></i>
+        Add address
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+
+
